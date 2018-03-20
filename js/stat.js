@@ -1,4 +1,4 @@
-window.getMaxValue = function (arr) {
+function getMaxValue(arr) {
     var max = 0;
     for (var i = 0; i < arr.length; i++) {
         if (arr[i] > max) {
@@ -6,7 +6,15 @@ window.getMaxValue = function (arr) {
         }
     }
     return max;
-};
+}
+
+function createObjFromArrays(arr1, arr2) {
+    var objArr = {};
+    arr1.forEach(function (item, i) {
+        objArr[item] = arr2[i];
+    });
+    return objArr;
+}
 
 window.renderStatistics = function (ctx, names, times) {
     //block vars
@@ -19,53 +27,55 @@ window.renderStatistics = function (ctx, names, times) {
     var fz = 16;
     // gist vars
     var gistH = 150;
-    var gistW = blockW - (horGutter * 2);
     var gistItemW = 40;
     var gistItemGutter = 50;
-    var gistItemColor = 'rgba(255, 0, 0, 1)';
-    var gistItemColor2 = 'blue';
     var textColor = '#000000';
+    var playersObj = createObjFromArrays(names, times);
 
     (function printBlock() {
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(blockX, blockY, blockW, blockH);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.7';
+        ctx.fillRect(blockX + 10, blockY + blockH, blockW, 10);
         ctx.font = fz + "px PT Mono";
         ctx.fillStyle = textColor;
         ctx.fillText("Ура вы победили!",blockX + horGutter, blockY + verticalGutter);
         ctx.fillText("Список результатов:",blockX + horGutter, blockY + verticalGutter + fz);
     })();
 
-    for (var i = 0; i < times.length; i++) {
-        var max = getMaxValue(times);
-        // max = 100;
-        // i = x;
-
-        createGist(blockX);
+    for (key in playersObj) {
+        if (!playersObj.hasOwnProperty(key)) {
+            return false;
+        }
+        printNames(blockX, key);
+        createGist(blockX, key);
         blockX += gistItemGutter + gistItemW;
-    }
-
-    function createGist(xPos) {
-        ctx.fillStyle = gistItemColor2;
-        ctx.fillRect(xPos + horGutter, blockY + verticalGutter + (fz*2), gistItemW, gistH);
-    }
-
-    for (var j = 0; j < names.length; j++) {
-        // var posX2 = blockX;
-        // printNames(posX2, names[j]);
-        // posX2 += gistItemGutter + gistItemW;
     }
 
     function printNames(xPos, name) {
         ctx.fillStyle = textColor;
-        ctx.fillText(name ,xPos + horGutter, blockY + verticalGutter + (fz*2) + gistH);
+        ctx.fillText(name ,xPos + horGutter,blockY + verticalGutter + (fz*3));
     }
 
+    function createGist(xPos, name) {
+        ctx.fillStyle = setColor(name);
+        ctx.fillRect(xPos + horGutter, blockY + verticalGutter + (fz*4), gistItemW, calcProprtion(playersObj[key]));
+    }
 
-    // function setProprtion() {
-    //
-    // }
+    function setColor(name) {
+        var color;
+        if (name.toLowerCase() === 'вы') {
+            color = 'rgba(255, 0, 0, 1)';
+        } else {
+            color = 'rgba(0, 0, 255,' + Math.random() + ')'; // ToDO opacity не может быть 0
+        }
+        return color;
+    }
 
-    // console.log(times);
-    // console.log(getMaxValue(times));
-    window.getMaxValue(times);
+    function calcProprtion(time) {
+        var maxTime = getMaxValue(times);
+        var x = gistH * time / maxTime;
+        return x;
+    }
+
 };
