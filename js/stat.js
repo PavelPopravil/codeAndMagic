@@ -9,7 +9,7 @@ window.getMaxValue = function (arr) {
 };
 
 window.renderStatistics = function (ctx, names, times) {
-
+    console.log(1);
     var blockX = 100;
     var blockY = 10;
     var blockH = 420;
