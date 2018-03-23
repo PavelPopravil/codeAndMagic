@@ -1,3 +1,4 @@
+'use strict';
 window.getMaxValue = function (arr) {
     var max = 0;
     for (var i = 0; i < arr.length; i++) {
@@ -38,7 +39,7 @@ window.renderStatistics = function (ctx, names, times) {
     for (var i = 0; i < times.length; i++) {
         var max = getMaxValue(times);
         // max = 100;
-        // i = x;
+        // i = x; 
 
         createGist(blockX);
         blockX += gistItemGutter + gistItemW;
