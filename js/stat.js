@@ -1,3 +1,4 @@
+'use strict';
 function getMaxValue(arr) {
     var max = 0;
     for (var i = 0; i < arr.length; i++) {
@@ -77,5 +78,4 @@ window.renderStatistics = function (ctx, names, times) {
         var x = gistH * time / maxTime;
         return x;
     }
-
 };
