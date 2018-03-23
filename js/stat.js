@@ -44,7 +44,7 @@ window.renderStatistics = function (ctx, names, times) {
         ctx.fillText("Список результатов:",blockX + horGutter, blockY + verticalGutter + fz);
     })();
 
-    for (key in playersObj) {
+    for (var key in playersObj) {
         if (!playersObj.hasOwnProperty(key)) {
             return false;
         }
