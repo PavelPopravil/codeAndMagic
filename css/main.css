@@ -587,6 +587,10 @@ input[type=radio]:checked + .review-mark-label {
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
+.setup-open-icon:focus {
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
 .setup-title {
   padding: 20px;
 }

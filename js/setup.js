@@ -1,5 +1,9 @@
 'use strict';
 window.setupInit = function () {
+    var ESC_CODE = 27;
+    var ENT_CODE = 13;
+    var block = document.querySelector('.setup');
+    // var listBlock = document.querySelector('.setup-similar');
     var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
     var firstNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
     var secondNames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
@@ -7,6 +11,48 @@ window.setupInit = function () {
     var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
     var wizardsLength = 4;
     var wizards = [];
+    var inputName = document.querySelector('.setup-user-name');
+
+    function validateForm() {
+        inputName.addEventListener('input', function (e) {
+            if (e.data === 0) {
+
+            }
+        });
+    }
+
+    function setPopupListener(e) {
+        if (e.keyCode === ESC_CODE && !inputName === document.activeElement) {
+            closePopup();
+        }
+    }
+
+    function setHandlers() {
+        var opener = document.querySelector('.setup-open');
+        var closer = document.querySelector('.setup-close');
+        opener.addEventListener('click', openPopup);
+        closer.addEventListener('click', closePopup);
+        opener.addEventListener('keydown', function (e) {
+            if (e.keyCode === ENT_CODE) {
+                openPopup();
+            }
+        });
+        closer.addEventListener('keydown', function (e) {
+            if (e.keyCode === ENT_CODE) {
+                closePopup();
+            }
+        });
+    }
+
+    function openPopup() {
+        block.classList.remove('hidden');
+        document.addEventListener('keydown', setPopupListener);
+    }
+
+    function closePopup() {
+        block.classList.add('hidden');
+        document.removeEventListener('keydown', setPopupListener);
+    }
 
     function generateName(arr, arr2) {
         return arr[Math.round(Math.random() * (arr.length - 1))] + ' ' + arr2[Math.round(Math.random() * (arr2.length - 1))];
@@ -48,17 +94,11 @@ window.setupInit = function () {
         }
     }
 
-    function showSetup() {
-        var block = document.querySelector('.setup');
-        var listBlock = document.querySelector('.setup-similar');
-        block.classList.remove('hidden');
-        listBlock.classList.remove('hidden');
-    }
-
     window.onload = function () {
-        showSetup();
+        setHandlers();
         createWizardsData();
         drawWizards();
+        validateForm();
     };
 };
 
