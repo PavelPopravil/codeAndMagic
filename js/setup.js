@@ -3,7 +3,7 @@ window.setupInit = function () {
     var ESC_CODE = 27;
     var ENT_CODE = 13;
     var block = document.querySelector('.setup');
-    // var listBlock = document.querySelector('.setup-similar');
+    var listBlock = document.querySelector('.setup-similar');
     var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
     var firstNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
     var secondNames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
@@ -12,16 +12,31 @@ window.setupInit = function () {
     var wizardsLength = 4;
     var wizards = [];
     var inputName = document.querySelector('.setup-user-name');
-
+    
+    function setColorHandlers() {
+        
+    }
+    
     function validateForm() {
         inputName.addEventListener('input', function (e) {
-            if (e.data === 0) {
+            var trg = e.target;
+            var valLength = trg.value.length;
+            var maxLength = this.getAttribute('maxlength') || 25;
+            var minLength = this.getAttribute('minlength') || 2;
 
+            if (!valLength) {
+                trg.setCustomValidity('Введите имя персонажа');
+            } else if (valLength > maxLength) {
+                trg.setCustomValidity('Должно быть не более ' + maxLength + ' символа.');
+            } else if (valLength < minLength) {
+                trg.setCustomValidity('Должно быть не менее ' + minLength + ' символа.');
+            } else {
+                trg.setCustomValidity('');
             }
         });
     }
 
-    function setPopupListener(e) {
+    function setPopupHandler(e) {
         if (e.keyCode === ESC_CODE && !inputName === document.activeElement) {
             closePopup();
         }
@@ -46,12 +61,13 @@ window.setupInit = function () {
 
     function openPopup() {
         block.classList.remove('hidden');
-        document.addEventListener('keydown', setPopupListener);
+        listBlock.classList.remove('hidden');
+        document.addEventListener('keydown', setPopupHandler);
     }
 
     function closePopup() {
         block.classList.add('hidden');
-        document.removeEventListener('keydown', setPopupListener);
+        document.removeEventListener('keydown', setPopupHandler);
     }
 
     function generateName(arr, arr2) {
@@ -99,6 +115,7 @@ window.setupInit = function () {
         createWizardsData();
         drawWizards();
         validateForm();
+        setColorHandlers();
     };
 };
 
