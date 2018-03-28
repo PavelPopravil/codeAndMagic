@@ -37,7 +37,7 @@ window.setupInit = function () {
     }
 
     function setPopupHandler(e) {
-        if (e.keyCode === ESC_CODE && !inputName === document.activeElement) {
+        if (e.keyCode === ESC_CODE && inputName !== document.activeElement) {
             closePopup();
         }
     }
