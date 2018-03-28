@@ -27,7 +27,7 @@ window.renderStatistics = function (ctx, names, times) {
     var verticalGutter = 40;
     var fz = 16;
     // gist vars
-    var gistH = 150;
+    var gistH = 140;
     var gistItemW = 40;
     var gistItemGutter = 50;
     var textColor = '#000000';
@@ -49,6 +49,7 @@ window.renderStatistics = function (ctx, names, times) {
             return false;
         }
         printNames(blockX, key);
+        printTimes(blockX, playersObj[key]);
         createGist(blockX, key);
         blockX += gistItemGutter + gistItemW;
     }
@@ -56,6 +57,16 @@ window.renderStatistics = function (ctx, names, times) {
     function printNames(xPos, name) {
         ctx.fillStyle = textColor;
         ctx.fillText(name ,xPos + horGutter,blockY + verticalGutter + (fz*3));
+    }
+
+    function printTimes(xPos, time) {
+        ctx.font = "12px PT Mono";
+        ctx.fillStyle = textColor;
+        if (typeof time !== 'number') {
+            return false;
+        }
+        var timeInSec = (time / 1000).toFixed(1) + ' сек';
+        ctx.fillText(timeInSec ,xPos + horGutter,blockY + verticalGutter + (fz*5) + gistH);
     }
 
     function createGist(xPos, name) {
