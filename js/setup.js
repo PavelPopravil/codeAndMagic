@@ -9,12 +9,24 @@ window.setupInit = function () {
     var secondNames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
     var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
     var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
+    var fireBallColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
     var wizardsLength = 4;
     var wizards = [];
     var inputName = document.querySelector('.setup-user-name');
-    
+    var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
+    var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
+    var fireBall = document.querySelector('.setup-fireball-wrap');
+
     function setColorHandlers() {
-        
+        wizardCoat.addEventListener('click', function () {
+            this.style.fill = genereteColor(coatColors);
+        });
+        wizardEyes.addEventListener('click', function () {
+            this.style.fill = genereteColor(eyesColors);
+        });
+        fireBall.addEventListener('click', function () {
+            this.style.background = genereteColor(fireBallColors);
+        })
     }
     
     function validateForm() {
