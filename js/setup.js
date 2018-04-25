@@ -9,7 +9,6 @@
     var fireBallColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
     var wizardsLength = 4;
     var wizards = [];
-    var inputName = document.querySelector('.setup-user-name');
     var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
     var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
     var fireBall = document.querySelector('.setup-fireball-wrap');
@@ -26,23 +25,14 @@
         })
     }
 
-    function validateForm() {
-        inputName.addEventListener('input', function (e) {
-            var trg = e.target;
-            var valLength = trg.value.length;
-            var maxLength = this.getAttribute('maxlength') || 25;
-            var minLength = this.getAttribute('minlength') || 2;
-
-            if (!valLength) {
-                trg.setCustomValidity('Введите имя персонажа');
-            } else if (valLength > maxLength) {
-                trg.setCustomValidity('Должно быть не более ' + maxLength + ' символа.');
-            } else if (valLength < minLength) {
-                trg.setCustomValidity('Должно быть не менее ' + minLength + ' символа.');
-            } else {
-                trg.setCustomValidity('');
-            }
-        });
+    function validateWizardName() {
+        var inputObj = {
+            element: document.querySelector('.setup-user-name'),
+            maxLength: 25,
+            minLength: 2,
+            noValueinputObjMessage: 'Введите имя персонажа'
+        };
+        window.util.inputValidation(inputObj);
     }
 
     function generateName(arr, arr2) {
@@ -84,7 +74,7 @@
     window.onload = function () {
         createWizardsData();
         drawWizards();
-        validateForm();
+        validateWizardName();
         setColorHandlers();
     };
 

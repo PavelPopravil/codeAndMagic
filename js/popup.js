@@ -39,8 +39,8 @@
         document.removeEventListener('keydown', setPopupHandler);
     }
 
-    window.onload = function () {
+    window.addEventListener('load', function () {
         setHandlers();
-    };
-    
+    });
+
 })();

@@ -30,8 +30,23 @@
         randomVal: function (arr) {
             return arr[Math.round(Math.random() * (arr.length - 1))];
         },
-        inputValidation: function () {
-            
+        inputValidation: function (inputObj) {
+            inputObj.element.addEventListener('input',function (e) {
+                var trg = e.target;
+                var valLength = trg.value.length;
+                var maxLength = this.getAttribute('maxlength') || inputObj.maxLength;
+                var minLength = this.getAttribute('minlength') || inputObjminLength;
+
+                if (!valLength) {
+                    trg.setCustomValidity(inputObj.noValueinputObjMessage);
+                } else if (valLength > maxLength) {
+                    trg.setCustomValidity('Должно быть не более ' + maxLength + ' символа.');
+                } else if (valLength < minLength) {
+                    trg.setCustomValidity('Должно быть не менее ' + minLength + ' символа.');
+                } else {
+                    trg.setCustomValidity('');
+                }
+            });
         }
     };
 
