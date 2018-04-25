@@ -1,9 +1,6 @@
-'use strict';
-window.setupInit = function () {
-    var ESC_CODE = 27;
-    var ENT_CODE = 13;
-    var block = document.querySelector('.setup');
-    var listBlock = document.querySelector('.setup-similar');
+(function () {
+    'use strict';
+
     var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
     var firstNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
     var secondNames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
@@ -19,16 +16,16 @@ window.setupInit = function () {
 
     function setColorHandlers() {
         wizardCoat.addEventListener('click', function () {
-            this.style.fill = genereteColor(coatColors);
+            this.style.fill = window.util.randomVal(coatColors);
         });
         wizardEyes.addEventListener('click', function () {
-            this.style.fill = genereteColor(eyesColors);
+            this.style.fill = window.util.randomVal(eyesColors);
         });
         fireBall.addEventListener('click', function () {
-            this.style.background = genereteColor(fireBallColors);
+            this.style.background = window.util.randomVal(fireBallColors);
         })
     }
-    
+
     function validateForm() {
         inputName.addEventListener('input', function (e) {
             var trg = e.target;
@@ -48,46 +45,8 @@ window.setupInit = function () {
         });
     }
 
-    function setPopupHandler(e) {
-        if (e.keyCode === ESC_CODE && inputName !== document.activeElement) {
-            closePopup();
-        }
-    }
-
-    function setHandlers() {
-        var opener = document.querySelector('.setup-open');
-        var closer = document.querySelector('.setup-close');
-        opener.addEventListener('click', openPopup);
-        closer.addEventListener('click', closePopup);
-        opener.addEventListener('keydown', function (e) {
-            if (e.keyCode === ENT_CODE) {
-                openPopup();
-            }
-        });
-        closer.addEventListener('keydown', function (e) {
-            if (e.keyCode === ENT_CODE) {
-                closePopup();
-            }
-        });
-    }
-
-    function openPopup() {
-        block.classList.remove('hidden');
-        listBlock.classList.remove('hidden');
-        document.addEventListener('keydown', setPopupHandler);
-    }
-
-    function closePopup() {
-        block.classList.add('hidden');
-        document.removeEventListener('keydown', setPopupHandler);
-    }
-
     function generateName(arr, arr2) {
         return arr[Math.round(Math.random() * (arr.length - 1))] + ' ' + arr2[Math.round(Math.random() * (arr2.length - 1))];
-    }
-
-    function genereteColor(arr) {
-        return arr[Math.round(Math.random() * (arr.length - 1))];
     }
 
     function drawWizards() {
@@ -117,21 +76,19 @@ window.setupInit = function () {
         }
 
         for (var i = 0; i < wizardsLength; i++) {
-            var name = new Wizard(generateName(firstNames, secondNames), genereteColor(coatColors), genereteColor(eyesColors));
+            var name = new Wizard(generateName(firstNames, secondNames), window.util.randomVal(coatColors), window.util.randomVal(eyesColors));
             wizards.push(name);
         }
     }
 
     window.onload = function () {
-        setHandlers();
         createWizardsData();
         drawWizards();
         validateForm();
         setColorHandlers();
     };
-};
 
-window.setupInit();
+})();
 
 
 

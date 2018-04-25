@@ -1,21 +1,4 @@
 'use strict';
-function getMaxValue(arr) {
-    var max = 0;
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] > max) {
-            max = arr[i];
-        }
-    }
-    return max;
-}
-
-function createObjFromArrays(arr1, arr2) {
-    var objArr = {};
-    arr1.forEach(function (item, i) {
-        objArr[item] = arr2[i];
-    });
-    return objArr;
-}
 
 window.renderStatistics = function (ctx, names, times) {
     //block vars
@@ -31,7 +14,7 @@ window.renderStatistics = function (ctx, names, times) {
     var gistItemW = 40;
     var gistItemGutter = 50;
     var textColor = '#000000';
-    var playersObj = createObjFromArrays(names, times);
+    var playersObj = window.util.createObjFromArrays(names, times);
 
     (function printBlock() {
         ctx.fillStyle = '#ffffff';
@@ -85,8 +68,6 @@ window.renderStatistics = function (ctx, names, times) {
     }
 
     function calcProprtion(time) {
-        var maxTime = getMaxValue(times);
-        var x = gistH * time / maxTime;
-        return x;
+        return  gistH * time / window.util.getMaxValue(times);
     }
 };
