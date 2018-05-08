@@ -35,7 +35,7 @@
                 var trg = e.target;
                 var valLength = trg.value.length;
                 var maxLength = this.getAttribute('maxlength') || inputObj.maxLength;
-                var minLength = this.getAttribute('minlength') || inputObjminLength;
+                var minLength = this.getAttribute('minlength') || inputObj.minLength;
 
                 if (!valLength) {
                     trg.setCustomValidity(inputObj.noValueinputObjMessage);

@@ -7,7 +7,7 @@
 
     function setDragHandlers() {
         shop.addEventListener('dragstart', function (e) {
-            dragItem = e.target;
+            dragItem = e.target.cloneNode(true);
             e.dataTransfer.setData('text/plain', dragItem.alt)
         });
 
@@ -27,9 +27,16 @@
         });
 
         artifacts.addEventListener('drop', function (e) {
-            e.target.style.background = '';
-            e.target.appendChild(dragItem);
-            e.preventDefault();
+            console.log(e.target.hasChildNodes());
+            if (e.target.hasChildNodes()) {
+                console.log('full');
+                return false;
+            } else {
+                e.target.style.background = '';
+                e.target.appendChild(dragItem);
+                e.preventDefault();
+                console.log('not-full');
+            }
         });
     }
 
