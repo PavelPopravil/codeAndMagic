@@ -613,6 +613,10 @@ input[type=radio]:checked + .review-mark-label {
   vertical-align: middle;
 }
 
+.setup-user-pic {
+
+}
+
 .setup-user-name {
   background: transparent;
   border: 0;

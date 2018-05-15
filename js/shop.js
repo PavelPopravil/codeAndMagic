@@ -12,6 +12,7 @@
         });
 
         artifacts.addEventListener('dragover', function (e) {
+            console.log(e.target.hasChildNodes());
             e.preventDefault();
             return false;
         });
@@ -27,15 +28,13 @@
         });
 
         artifacts.addEventListener('drop', function (e) {
-            console.log(e.target.hasChildNodes());
+            // console.log(e.target.hasChildNodes());
             if (e.target.hasChildNodes()) {
-                console.log('full');
                 return false;
             } else {
                 e.target.style.background = '';
                 e.target.appendChild(dragItem);
                 e.preventDefault();
-                console.log('not-full');
             }
         });
     }

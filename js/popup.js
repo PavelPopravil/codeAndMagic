@@ -4,7 +4,8 @@
     var popup = document.querySelector('.setup');
     var listpopup = document.querySelector('.setup-similar');
     var inputName = popup.querySelector('.setup-user-name');
-    
+    var dragZONE = popup.querySelector('.setup-user-pic');
+
     function setHandlers() {
         var opener = document.querySelector('.setup-open');
         var closer = document.querySelector('.setup-close');
@@ -19,6 +20,13 @@
             if (window.util.isEntEvent(e)) {
                 closePopup();
             }
+        });
+        dragZONE.addEventListener('mousedown', enableDrag)
+    }
+
+    function enableDrag() {
+        document.addEventListener('mousemove', function (e) {
+            console.log(e);
         });
     }
 
