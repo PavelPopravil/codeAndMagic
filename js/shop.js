@@ -7,12 +7,11 @@
 
     function setDragHandlers() {
         shop.addEventListener('dragstart', function (e) {
-            dragItem = e.target.cloneNode(true);
+            dragItem = e.target;
             e.dataTransfer.setData('text/plain', dragItem.alt)
         });
 
         artifacts.addEventListener('dragover', function (e) {
-            console.log(e.target.hasChildNodes());
             e.preventDefault();
             return false;
         });
@@ -28,14 +27,9 @@
         });
 
         artifacts.addEventListener('drop', function (e) {
-            // console.log(e.target.hasChildNodes());
-            if (e.target.hasChildNodes()) {
-                return false;
-            } else {
-                e.target.style.background = '';
-                e.target.appendChild(dragItem);
-                e.preventDefault();
-            }
+            e.target.style.background = '';
+            e.target.appendChild(dragItem);
+            e.preventDefault();
         });
     }
 
