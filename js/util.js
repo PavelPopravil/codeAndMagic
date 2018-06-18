@@ -50,4 +50,36 @@
         }
     };
 
+    var carWash = {
+        washACat: function () {
+            var app = this;
+            setTimeout(function () {
+                var i;
+                for (i = 0; i < 10; i++) {
+
+                }
+                console.log(i);
+                if (typeof app.callback === 'function') {
+                    app.callback();
+                }
+            }, 1000);
+        },
+        callback: function () {
+            console.log('ur car is washed up');
+        }
+    };
+
+    window.jsonCallback = function (data) {
+      data.forEach(function (item, i) {
+          console.log(item);
+          console.log(i);
+          console.log(item.name);
+      });
+    };
+
+    var newScript = document.createElement('script');
+    newScript.src = 'js/data.js';
+    document.body.append(newScript);
+
+    // carWash.washACat()
 })();
