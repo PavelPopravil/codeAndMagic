@@ -60,6 +60,6 @@
         document.body.append(newScirpt);
     }
 
-    addScript('http://cdn.rawgit.com/PavelPopravil/codeAndMagic/master/js/data.json?callback=dataCallback')
+    addScript('http://rawgit.com/PavelPopravil/codeAndMagic/master/js/data.js?callback=dataCallback')
 
 })();
