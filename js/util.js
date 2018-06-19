@@ -50,36 +50,16 @@
         }
     };
 
-    var carWash = {
-        washACat: function () {
-            var app = this;
-            setTimeout(function () {
-                var i;
-                for (i = 0; i < 10; i++) {
+    function dataCallback(data) {
+        console.log(data);
+    }
 
-                }
-                console.log(i);
-                if (typeof app.callback === 'function') {
-                    app.callback();
-                }
-            }, 1000);
-        },
-        callback: function () {
-            console.log('ur car is washed up');
-        }
-    };
+    function addScript(src) {
+        var newScirpt = document.createElement('script');
+        newScirpt.src = src;
+        document.body.append(newScirpt);
+    }
 
-    window.jsonCallback = function (data) {
-      data.forEach(function (item, i) {
-          console.log(item);
-          console.log(i);
-          console.log(item.name);
-      });
-    };
+    addScript('https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json')
 
-    var newScript = document.createElement('script');
-    newScript.src = 'js/data.js';
-    document.body.append(newScript);
-
-    // carWash.washACat()
 })();
