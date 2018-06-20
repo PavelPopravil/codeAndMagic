@@ -50,16 +50,16 @@
         }
     };
 
-    function dataCallback(data) {
-        console.log(data);
-    }
-
-    function addScript(src) {
-        var newScirpt = document.createElement('script');
-        newScirpt.src = src;
-        document.body.append(newScirpt);
-    }
-
-    addScript('http://rawgit.com/PavelPopravil/codeAndMagic/master/js/data.js?callback=dataCallback')
-
 })();
+
+function dataCallback(data) {
+    console.log(data);
+}
+
+function addScript(src) {
+    var newScirpt = document.createElement('script');
+    newScirpt.src = src;
+    document.body.append(newScirpt);
+}
+
+addScript('http://api.github.com/?callback=dataCallback')
