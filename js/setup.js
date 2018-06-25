@@ -2,13 +2,9 @@
     'use strict';
 
     var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-    var firstNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-    var secondNames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-    var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-    var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
     var fireBallColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
     var wizardsLength = 4;
-    var wizards = [];
+    // var wizards = [];
     var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
     var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
     var fireBall = document.querySelector('.setup-fireball-wrap');
@@ -39,12 +35,12 @@
         return arr[Math.round(Math.random() * (arr.length - 1))] + ' ' + arr2[Math.round(Math.random() * (arr2.length - 1))];
     }
 
-    function drawWizards() {
+    function drawWizards(data) {
         var wrap = document.querySelector('.setup-similar-list');
         var fragment = document.createDocumentFragment();
 
-        for (var i = 0; i < wizards.length; i++) {
-            fragment.appendChild(renderWizards(wizards[i]));
+        for (var i = 0; i < wizardsLength; i++) {
+            fragment.appendChild(renderWizards(window.util.randomVal(data)));
         }
 
         wrap.appendChild(fragment);
@@ -53,27 +49,24 @@
     function renderWizards(wizard) {
         var templateClone = template.cloneNode(true);
         templateClone.querySelector('.setup-similar-label').textContent = wizard.name;
-        templateClone.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-        templateClone.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+        templateClone.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+        templateClone.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
         return templateClone;
     }
 
-    function createWizardsData() {
-        function Wizard(name, coatColor, eyesColor) {
-            this.name = name;
-            this.coatColor = coatColor;
-            this.eyesColor = eyesColor;
-        }
-
-        for (var i = 0; i < wizardsLength; i++) {
-            var name = new Wizard(generateName(firstNames, secondNames), window.util.randomVal(coatColors), window.util.randomVal(eyesColors));
-            wizards.push(name);
-        }
+    function createMessageBlock(message) {
+        var messageBlock = document.createElement('div');
+        messageBlock.classList.add('message-block');
+        messageBlock.innerText = message;
+        document.body.append(messageBlock);
+        setTimeout(function () {
+            messageBlock.remove();
+        }, 5000);
     }
 
+    backend.load('GET', 'https://js.dump.academy/code-and-magick/data', drawWizards, createMessageBlock);
+
     window.onload = function () {
-        createWizardsData();
-        drawWizards();
         validateWizardName();
         setColorHandlers();
     };
