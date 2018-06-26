@@ -83,13 +83,12 @@
         }
     }
 
-    function closePopup() {
+    window.closePopup = function() {
         popup.classList.add('hidden');
         document.removeEventListener('keydown', setPopupHandler);
-    }
+    };
 
     window.addEventListener('load', function () {
         setHandlers();
     });
-
 })();

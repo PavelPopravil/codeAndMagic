@@ -1,10 +1,12 @@
 (function () {
     'use strict';
 
+    var setupForm = document.querySelector('.setup-wizard-form');
     var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
     var fireBallColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
     var wizardsLength = 4;
-    // var wizards = [];
+    var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+    var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
     var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
     var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
     var fireBall = document.querySelector('.setup-fireball-wrap');
@@ -64,11 +66,18 @@
         }, 5000);
     }
 
-    backend.load('GET', 'https://js.dump.academy/code-and-magick/data', drawWizards, createMessageBlock);
+    function setFormHandlers() {
+        setupForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            backend.load('POST', 'https://js.dump.academy/code-and-magick', window.closePopup, createMessageBlock, new FormData(this));
+        })
+    }
 
     window.onload = function () {
         validateWizardName();
         setColorHandlers();
+        backend.load('GET', 'https://js.dump.academy/code-and-magick/data', drawWizards, createMessageBlock);
+        setFormHandlers();
     };
 
 })();

@@ -1,5 +1,5 @@
 var backend = {
-    load: function (method, url, onSuccuess, onError) {
+    load: function (method, url, onSuccuess, onError, data) {
         var xhr = new XMLHttpRequest();
         xhr.responseType = 'json';
         xhr.addEventListener('load', function () {
@@ -20,10 +20,10 @@ var backend = {
 
         xhr.timeout = 10000;
         xhr.open(method, url);
-        xhr.send();
-    },
-
-    upload: function () {
-
+        if (data !== undefined && method === 'POST') {
+            xhr.send(data);
+        } else {
+            xhr.send();
+        }
     }
 };
