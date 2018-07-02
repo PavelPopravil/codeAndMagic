@@ -72,15 +72,12 @@
     function drawWizards(data) {
         var wrap = document.querySelector('.setup-similar-list');
         wrap.innerHTML = '';
-        var fragment = document.createDocumentFragment();
-        data.forEach(function (item, i) {
-            if (i < 4) {
-                fragment.appendChild(renderWizard(item))
-            } else {
-                return false;
+        var fragment = data.reduce(function (frg, item, i) {
+            if (i < wizardsLength) {
+                frg.append(renderWizard(item));
             }
-        });
-
+            return frg;
+        }, document.createDocumentFragment());
         wrap.appendChild(fragment);
     }
 
