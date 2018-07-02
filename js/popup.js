@@ -72,7 +72,7 @@
         }
     }
 
-    function openPopup() {
+    window.openPopup = function() {
         popup.classList.remove('hidden');
         listpopup.classList.remove('hidden');
         document.addEventListener('keydown', setPopupHandler);
@@ -81,7 +81,7 @@
             popup.style.top = window.popupStartCoords.y + 'px';
             popup.style.left = window.popupStartCoords.x + 'px';
         }
-    }
+    };
 
     window.closePopup = function() {
         popup.classList.add('hidden');
