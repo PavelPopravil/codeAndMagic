@@ -22,12 +22,13 @@
             }
         });
         dragZONE.addEventListener('mousedown', function (e) {
+            console.log(this);
             enableDrag(e);
         });
     }
 
     function enableDrag(e) {
-
+        console.log(e);
         window.popupStartCoords = {
             x: popup.offsetLeft,
             y: popup.offsetTop
