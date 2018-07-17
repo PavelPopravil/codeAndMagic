@@ -4,7 +4,7 @@
     var popup = document.querySelector('.setup');
     var listpopup = document.querySelector('.setup-similar');
     var inputName = popup.querySelector('.setup-user-name');
-    var dragZONE = popup.querySelector('.setup-user-pic');
+    var dragZONE = popup.querySelector('.upload');
 
     function setHandlers() {
         var opener = document.querySelector('.setup-open');
@@ -21,14 +21,15 @@
                 closePopup();
             }
         });
+
         dragZONE.addEventListener('mousedown', function (e) {
-            console.log(this);
             enableDrag(e);
         });
     }
 
     function enableDrag(e) {
-        console.log(e);
+        var draggable = false;
+
         window.popupStartCoords = {
             x: popup.offsetLeft,
             y: popup.offsetTop
@@ -41,6 +42,7 @@
 
         function onMouseMove(moveEvt) {
             moveEvt.preventDefault();
+            draggable = true;
 
             var shift = {
                 x: startCoords.x - moveEvt.pageX,
@@ -58,8 +60,18 @@
 
         function onMouseUp(upEvt) {
             upEvt.preventDefault();
+
+            if (draggable) {
+                var onClickPreventDefault = function (e) {
+                    e.preventDefault();
+                    draggable = false;
+                    this.removeEventListener('click', onClickPreventDefault);
+                };
+                dragZONE.addEventListener('click', onClickPreventDefault);
+            }
+
             document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mousemup', onMouseUp);
+            document.removeEventListener('mouseup', onMouseUp);
         }
 
         document.addEventListener('mousemove', onMouseMove);
