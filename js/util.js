@@ -1,24 +1,20 @@
 (function () {
     'use strict';
 
-    var ESC_CODE = 27;
-    var ENT_CODE = 13;
+    var Key_codes = {
+        esc: 27,
+        ent: 13
+    };
 
     window.util = {
         isEscEvent: function (e) {
-            return e.keyCode === ESC_CODE;
+            return e.keyCode === Key_codes.esc;
         },
         isEntEvent: function (e) {
-            return e.keyCode === ENT_CODE;
+            return e.keyCode === Key_codes.ent;
         },
         getMaxValue: function (arr) {
-            var max = 0;
-            for (var i = 0; i < arr.length; i++) {
-                if (arr[i] > max) {
-                    max = arr[i];
-                }
-            }
-            return max;
+            return Math.max.apply(null, arr);
         },
         createObjFromArrays: function (arr1, arr2) {
             var objArr = {};
